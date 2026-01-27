@@ -37,7 +37,7 @@ NASA’s shortfall process highlights the need for advances in areas including h
 In parallel, NASA’s **Moon to Mars Architecture Definition Document** describes an exploration strategy that explicitly depends on **interoperable, extensible, and evolvable communications and data systems** spanning Earth, lunar, and Mars domains.
 
 **Source:**
-[NASA – Moon to Mars Architecture Definition Document](https://www.nasa.gov/humans-in-space/moon-to-mars-architecture/)
+[NASA – Moon to Mars Architecture Definition Document](https://www.nasa.gov/moontomarsarchitecture/)
 
 Together, these documents make clear that future missions require **shared networking standards** capable of operating across long distances, disconnected environments, and diverse mission operators.
 
