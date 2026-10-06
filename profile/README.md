@@ -126,12 +126,20 @@ This mirrors the model that allowed the Internet to scale globally—and applies
 
 ---
 
-## What You Will Find in This Repository
+## Current Release
 
-- **Specifications** defining the Pale Blue Systems communication standards
-- **Reference implementations** demonstrating correct, interoperable behavior
-- **Conformance and interoperability tooling**
-- **Governance artifacts** (RFCs, decision records, version history)
+**PBS v1.4** (2026-09-22) aligns the PBS standards with NASA's LCRNS / LunaNet architecture and FY26 Civil Space Shortfalls. It adds mission service intent, authority and scope context, PNT context, authenticated mission messaging, a current BPv7 mapping, network-treatment mapping, and a NASA/LunaNet conformance profile, with requirements traceability. See the [changelog](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-PROTOCOL-CHANGELOG.md).
+
+---
+
+## Repositories
+
+| Repository | What it is |
+| --- | --- |
+| [PBS-PROTOCOL-OPEN](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN) | The PBS open standard: protocol specifications, conformance profiles, governance, and external alignment evidence |
+| [PBS_LINK](https://github.com/Pale-Blue-Systems/PBS_LINK) | Python reference SDK for building and parsing PBS envelopes |
+| [PBS-EDGE-ADAPTER-MV](https://github.com/Pale-Blue-Systems/PBS-EDGE-ADAPTER-MV) | Minimum viable reference for mapping PBS envelopes into BPv7 bundles at the network edge |
+| [PBS-APPLICATION-LAYER-RISK-MANAGMENT](https://github.com/Pale-Blue-Systems/PBS-APPLICATION-LAYER-RISK-MANAGMENT) | Application-layer governors that shed traffic by PBS priority on metered or power-constrained links |
 
 ---
 
