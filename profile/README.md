@@ -85,7 +85,7 @@ The [changelog](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main
 | Repository | Content |
 | --- | --- |
 | [PBS-PROTOCOL-OPEN](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN) | PBS specifications (`PBS-RFC-LIB/`), governance, changelog, and alignment and traceability records (`PBS-ALIGNMENT-LIB/`). |
-| [PBS_LINK](https://github.com/Pale-Blue-Systems/PBS_LINK) | Python reference SDK that builds and parses PBS-ENV-01 v1.3 envelopes; pip distribution `pbs-link` 0.1.1, import package `PBS_LINK`. |
+| [PBS_LINK](https://github.com/Pale-Blue-Systems/PBS_LINK) | Python reference SDK that builds and parses PBS-ENV-01 v1.3 envelopes; pip distribution `pbs-link` 0.1.2, import package `PBS_LINK`. |
 | [PBS-EDGE-ADAPTER-MV](https://github.com/Pale-Blue-Systems/PBS-EDGE-ADAPTER-MV) | Reference design and tested Python worked example that builds a BPv7 bundle (RFC 9171) carrying one PBS-ENV-01 envelope in its payload block; it does not connect to a bundle protocol agent. |
 | [PBS-APPLICATION-LAYER-RISK-MANAGMENT](https://github.com/Pale-Blue-Systems/PBS-APPLICATION-LAYER-RISK-MANAGMENT) | Python admission-control governors that refuse outbound packets by PBS-PRIO-01 class, lowest class first, as a 24-hour data-volume or transmit-energy budget depletes; the transmit-energy governor also refuses every class except CRITICAL while battery charge is below a configured cutoff. CRITICAL (0) is always admitted. |
 
