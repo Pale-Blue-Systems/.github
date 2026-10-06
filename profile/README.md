@@ -27,8 +27,8 @@ NASA's Space Technology Mission Directorate (STMD) defines a shortfall as "a tec
 | Need | NASA need statement | PBS requirements | Implementing specifications |
 | --- | --- | --- | --- |
 | 13.09 | "Provide advanced networking needed for multi-spacecraft responsive space operations." | PBS-NASA-1309-001 to -003 | PBS-SVC-01, PBS-PRIO-01, PBS-QOS-MAP-01, PBS-CAPS-01 |
-| 15.01 | "Provide scalable, reliable surface-to-surface communications between assets on the lunar surface that is usable by all participating elements. Reference ESDMD #0103 (Moon) for specific details." | PBS-NASA-1501-001 to -003 | PBS-ENV-01, PBS-SVC-01, PBS-LNIS-01, PBS-DTN-MAP-02, PBS-CONFORMANCE-02 |
-| 15.03 | "Achieve safe, efficient human-robot interactions for exploration missions, secure command and control over high-latency, bandwidth-limited networks, or implement reliable automated safing sequences. Reference ESDMD #1005 for specific details." | PBS-NASA-1503-001 to -005 | PBS-AUTH-01, PBS-SEC-B-01, PBS-SVC-01, PBS-CONFORMANCE-02 |
+| 15.01 | "Provide scalable, reliable surface-to-surface communications between assets on the lunar surface that is usable by all participating elements." | PBS-NASA-1501-001 to -003 | PBS-ENV-01, PBS-SVC-01, PBS-LNIS-01, PBS-DTN-MAP-02, PBS-CONFORMANCE-02 |
+| 15.03 | "Achieve safe, efficient human-robot interactions for exploration missions, secure command and control over high-latency, bandwidth-limited networks, or implement reliable automated safing sequences." | PBS-NASA-1503-001 to -005 | PBS-AUTH-01, PBS-SEC-B-01, PBS-SVC-01, PBS-CONFORMANCE-02 |
 | 24.05 | "Develop a lunar position, navigation, and timing architecture capable of scaling to long term operational needs." | PBS-NASA-2405-001 to -003 | PBS-PNT-CTX-01 |
 
 STMD lists 13.09, 15.01 and 24.05 among its 40 primary focus areas for FY26 (pp. 10–11).
@@ -70,7 +70,7 @@ The traceability matrix [PBS-TRACE-NASA-FY26-01](https://github.com/Pale-Blue-Sy
 
 ## Current Release
 
-PBS v1.4.1 (2026-10-06) is the current release. It is an errata and documentation release of PBS v1.4 (2026-09-22) and does not change the wire format. Its errata correct normative text in PBS-ENV-01, PBS-SEC-A-01, PBS-CONFORMANCE-01, PBS-PRIO-01, PBS-ROUTE-01, PBS-ADDR-01, PBS-MUX-01, PBS-CAPS-01, PBS-POS-01 and PBS-SEC-B-01, and reconcile the Allocation column of PBS-TRACE-NASA-FY26-01 with the specification Traceability sections.
+PBS v1.4.1 (2026-10-06) is the current release. It is an errata and documentation release of PBS v1.4 (2026-09-22) and does not change the wire format. Its errata correct normative text in PBS-ENV-01, PBS-SEC-A-01, PBS-CONFORMANCE-01, PBS-PRIO-01, PBS-ROUTE-01, PBS-ADDR-01, PBS-MUX-01, PBS-CAPS-01, PBS-POS-01, PBS-SEC-B-01 and PBS-CONFORMANCE-02. They add Traceability sections to PBS-ENV-01 (Section 21), PBS-PRIO-01 (Section 15) and PBS-CAPS-01 (Section 15), complete those of PBS-SVC-01 (Section 13) and PBS-CONFORMANCE-02 (Section 6), and reconcile the Allocation column of PBS-TRACE-NASA-FY26-01 with the specification Traceability sections.
 
 PBS-ENV-01 Section 4, PBS-SEC-A-01 Sections 4.1 and 5.1 and PBS-CONFORMANCE-01 Sections 4.3 and 5.1 stated the header CRC-32 coverage as bytes 0x00–0x27. They now state bytes 0x00–0x2B with the CRC32 field zeroed, the rule PBS-ENV-01 Section 13 already specified. The PBS-ENV-01 Section 13.2 test vector has CRC32 0x588721ED; the superseded rule yields 0x019507AC. PBS-ENV-01 Section 12.2 stated that the TTL expiry check takes the Timestamp field in Unix epoch seconds. It now states microseconds, the unit Section 10 defines and the expiry formula already assumed.
 
