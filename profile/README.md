@@ -1,147 +1,96 @@
 # Pale Blue Systems Foundation
 
-The **Pale Blue Systems Foundation (PBSF)** is an independent, foundation-led steward of **open standards and reference implementations** for reliable, interoperable communication across **space, lunar, planetary, and other extreme or delay-tolerant environments**.
+The Pale Blue Systems Foundation (PBSF) stewards the Pale Blue Systems (PBS) Open Standard. PBS is an application-layer protocol that carries mission semantics between mission applications independently of the transport beneath it, including the IP and Bundle Protocol Version 7 (BPv7) network services of LunaNet. The semantics include priority, service intent, authority, authentication, and position, navigation and timing (PNT) context.
 
-PBSF exists to ensure that spacecraft, rovers, habitats, autonomous systems, and ground infrastructure can **communicate, coordinate, and exchange data safely and predictably** across heterogeneous networks where traditional terrestrial assumptions—continuous connectivity, low latency, single-authority control—do not apply.
-
-The Foundation provides the **shared technical language and governance layer** that allows civil, commercial, and international space systems to interoperate without requiring shared vendors, shared hardware, or proprietary disclosure.
+PBSF publishes the PBS Core specifications, reviews and accepts changes, manages versioning and deprecation, and maintains conformance guidance. It does not develop mission-specific software, operate networks or deploy infrastructure ([PBS-GOV-01](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-RFC-LIB/PBS-GOV-01.md) Section 3.1). Pale Blue Systems Inc. is a commercial entity that may build PBS implementations and offer PBS-compatible products and services; it contributes under PBSF governance and has no authority over PBS Core beyond that of any other contributor ([PBS-GOV-01](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-RFC-LIB/PBS-GOV-01.md) Section 3.2).
 
 ---
 
-## Why the Foundation Exists
+## Engineering Problem
 
-As space operations move toward sustained lunar presence, cislunar infrastructure, and Mars exploration, missions increasingly depend on **distributed, networked systems** operating across:
+LunaNet is the lunar communications and PNT interoperability framework that NASA, ESA and JAXA define in the [LunaNet Interoperability Specification, Version 5](https://www.nasa.gov/wp-content/uploads/2025/02/lunanet-interoperability-specification-v5-baseline.pdf) (LNIS V005, baseline, 29 January 2025):
 
-- long and variable communication delays
-- intermittent or scheduled connectivity
-- multiple independent authorities and vendors
-- human-rated, life- and safety-critical environments
+- No single LunaNet Service Provider (LNSP) has to meet every user need. LNIS expects users to be served by a combination of interoperable LNSPs (Section 1).
+- Real-time IP network services carry traffic when source and destination are both on an IP-capable part of the network (Section 3.1.1.2).
+- BPv7 carries traffic over links with disruption or delay, or where no robust end-to-end path exists (Section 3.1.2).
 
-These conditions require communication architectures that are **store-and-forward by design**, tolerant of disruption, and interoperable across organizational boundaries.
+NASA's [Moon to Mars Architecture Definition Document](https://www.nasa.gov/wp-content/uploads/2025/12/add-revision-c-20251211.pdf) (ESDMD-001 Revision C, 12 December 2025), Section 2.3.14.2, states: "NASA seeks to empower network users with a long-term, scalable, and interoperable C&PNT architecture." The same section names LNIS as the structure of standards, protocols and interface requirements for LunaNet, and states that NASA must define, adopt and implement lunar reference systems, including reference frames, in the early stages of architecture development.
 
----
-
-## The Problem Identified by NASA
-
-NASA’s Space Technology Mission Directorate (STMD) has formally identified **communications, networking, and coordination** as critical technology shortfalls that must be addressed to support future exploration architectures.
-
-The **NASA 2026 Civil Space Shortfall Ranking** defines a *shortfall* as:
-
-> “a technology area requiring further development to meet future exploration, science, and other mission needs.”
-
-NASA’s shortfall process highlights the need for advances in areas including high-rate space communications, autonomous operations, and distributed systems that must function reliably across deep space and planetary environments.
-
-**Source:**
-[NASA – 2026 Civil Space Shortfall Ranking](https://www.nasa.gov/directorates/stmd/prizes-challenges-crowdsourcing-program/center-of-excellence-for-collaborative-innovation-coeci/2026-civil-space-shortfall-ranking/)
-
-In parallel, NASA’s **Moon to Mars Architecture Definition Document** describes an exploration strategy that explicitly depends on **interoperable, extensible, and evolvable communications and data systems** spanning Earth, lunar, and Mars domains.
-
-**Source:**
-[NASA – Moon to Mars Architecture Definition Document](https://www.nasa.gov/moontomarsarchitecture/)
-
-Together, these documents make clear that future missions require **shared networking standards** capable of operating across long distances, disconnected environments, and diverse mission operators.
+A message between two lunar assets can therefore cross more than one provider, over IP or over BPv7. LNIS defines the standards and interfaces with which providers deliver interoperable services (Section 1.1). PBS defines the application-layer fields the receiving application acts on: the sender's identity and priority, the message deadline, the commanding authority, and the reference frame and time reference of PNT data. [PBS-LNIS-01](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-RFC-LIB/PBS-LNIS-01.md) requires every provider transition to preserve the PBS Source ID, authority context, priority, Service Intent and protected application payload (PBS-LNIS-REQ-007).
 
 ---
 
-## How Pale Blue Systems Addresses This Problem
+## NASA FY26 Civil Space Shortfalls
 
-PBSF directly addresses these NASA-identified needs by stewarding **open standards and reference implementations** that sit **between space hardware and mission applications**, enabling interoperability without constraining innovation.
+NASA's Space Technology Mission Directorate (STMD) defines a shortfall as "a technology area requiring further development to meet future exploration, science, and other mission needs" ([FY26 Civil Space Shortfall Prioritization](https://www.nasa.gov/wp-content/uploads/2026/05/fy26-civil-space-shortfall-prioritization.pdf), May 2026, p. 3). The FY26 prioritization consolidates the 187 shortfalls STMD published in 2024 into 32 categories, and each category contains numbered need statements. PBS v1.4 traces its requirements to four need statements:
 
-### Architectural Commitments
+| Need | NASA need statement | PBS requirements | Implementing specifications |
+| --- | --- | --- | --- |
+| 13.09 | "Provide advanced networking needed for multi-spacecraft responsive space operations." | PBS-NASA-1309-001 to -003 | PBS-SVC-01, PBS-PRIO-01, PBS-QOS-MAP-01, PBS-CAPS-01 |
+| 15.01 | "Provide scalable, reliable surface-to-surface communications between assets on the lunar surface that is usable by all participating elements. Reference ESDMD #0103 (Moon) for specific details." | PBS-NASA-1501-001 to -003 | PBS-ENV-01, PBS-SVC-01, PBS-LNIS-01, PBS-DTN-MAP-02, PBS-CONFORMANCE-02 |
+| 15.03 | "Achieve safe, efficient human-robot interactions for exploration missions, secure command and control over high-latency, bandwidth-limited networks, or implement reliable automated safing sequences. Reference ESDMD #1005 for specific details." | PBS-NASA-1503-001 to -005 | PBS-AUTH-01, PBS-SEC-B-01, PBS-SVC-01, PBS-CONFORMANCE-02 |
+| 24.05 | "Develop a lunar position, navigation, and timing architecture capable of scaling to long term operational needs." | PBS-NASA-2405-001 to -003 | PBS-PNT-CTX-01 |
 
-The standards stewarded by PBSF are designed to:
+STMD lists 13.09, 15.01 and 24.05 among its 40 primary focus areas for FY26 (pp. 10–11).
 
-- **Align with NASA’s Delay/Disruption Tolerant Networking (DTN) architecture**, including compatibility with CCSDS and Internet Bundle Protocol concepts
-- **Prioritize store-and-forward communication**, treating disconnection as normal rather than exceptional
-- **Support data classification and prioritization**, ensuring that life- and safety-critical telemetry and command data are handled appropriately
-- **Enable seamless communication between proprietary systems**, regardless of latency profile, vendor, or deployment context
-
-PBSF standards are designed to **translate and interoperate with NASA-adopted DTN implementations**, including the **Interplanetary Overlay Network (ION)**.
-
-**Source:**
-[NASA – Interplanetary Overlay Network (ION)](https://www.nasa.gov/space-communications-navigation/interplanetary-overlay-network/)
-
-ION demonstrates how DTN-based protocols can be deployed across flight and ground systems; PBSF builds on this foundation to enable **multi-party, multi-vendor interoperability** at scale.
+The traceability matrix [PBS-TRACE-NASA-FY26-01](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-ALIGNMENT-LIB/PBS-TRACE-NASA-FY26-01.md) also traces PBS-LNIS-001 to -003 to LNIS V005, and PBS-BPV7-001 and -002 to RFC 9171 / CCSDS. It assigns each requirement a verification method: analysis, inspection, demonstration or test. The matrix is a PBS engineering record, not a NASA document. No verification results against it are published.
 
 ---
 
-## Where PBSF Fits (Architecture Overview)
-
-The Pale Blue Systems standards operate as **middleware**, abstracting communication complexity while remaining grounded in real space networking constraints.
+## Where PBS Sits
 
 ```text
-+------------------------------------------------------+
-|                  Mission Applications                 |
-|   (Rovers, Landers, Habitats, Drones, Ops Software)   |
-+----------------------▲-------------------------------+
-                       |
-                       |  Interoperable Data Exchange
-                       |
-+----------------------|-------------------------------+
-|        Pale Blue Systems Standards & Reference       |
-|            Implementations (Middleware Layer)        |
-|   - DTN-aligned messaging                            |
-|   - Store-and-forward transport                      |
-|   - Safety & priority handling                       |
-|   - Multi-authority interoperability                 |
-+----------------------▲-------------------------------+
-                       |
-                       |  Translated / Abstracted Links
-                       |
-+----------------------|-------------------------------+
-|     Space Communication Hardware & Links             |
-|   (Radios, Lasers, Relays, Ground Stations, Antennas)|
-+------------------------------------------------------+
++---------------------------------------------------------------------+
+| Mission applications                                                |
+| rovers, landers, habitats, robots, operations software              |
++---------------------------------------------------------------------+
+| PBS mission semantics (application protocol data)                   |
+|   Core:     PBS-ENV-01 envelope, PBS-PRIO-01 priority,              |
+|             PBS-SEC-A-01 header integrity                           |
+|   v1.4:     PBS-SVC-01 service intent, PBS-AUTH-01 authority,       |
+|             PBS-SEC-B-01 authentication, PBS-PNT-CTX-01 PNT context |
+|   Mappings: PBS-LNIS-01, PBS-DTN-MAP-01, PBS-DTN-MAP-02,            |
+|             PBS-QOS-MAP-01                                          |
++---------------------------------------------------------------------+
+| Network services (LunaNet and other IP and DTN networks)            |
+|   real-time IP  |  BPv7 (RFC 9171) with BPSec (RFC 9172)            |
++---------------------------------------------------------------------+
+| Providers and links                                                 |
+| LNSPs, relays, ground stations; RF, optical, 3GPP, Wi-Fi, wired     |
++---------------------------------------------------------------------+
 ```
 
-PBSF does **not** replace mission software or physical communication systems.
-It provides the **common protocol language** that allows them to work together.
-
----
-
-## Benefits for Commercial and Civil Space Systems
-
-A commercial spacecraft, rover, habitat, drone, or field technician benefits from PBSF standards by gaining:
-
-- Interoperability with NASA and other civil programs without bespoke integration
-- Compatibility across high-latency and low-latency networks using a single logical model
-- Reduced engineering risk through alignment with NASA-recognized architectures
-- Freedom to innovate internally while communicating externally through shared standards
-
-This lowers integration cost, reduces mission risk, and enables participation in multi-party exploration architectures.
-
----
-
-## Why Open Standards and Neutral Stewardship Matter
-
-PBSF is intentionally structured as a **neutral foundation** stewarding **open standards and reference implementations**:
-
-- **Open standards enable trust and adoption** across agencies, companies, and nations
-- **Reference implementations provide clarity**, not commercial lock-in
-- **Neutral governance ensures longevity**, allowing the standards to outlive individual missions or vendors
-
-Commercial products, services, and mission-specific implementations may be built by ecosystem participants (including Pale Blue Systems Inc.), but the **core communication language remains public, stable, and interoperable**.
-
-This mirrors the model that allowed the Internet to scale globally—and applies it to the far more constrained domain of space.
+- PBS Core conformance requires PBS-ENV-01 v1.3, PBS-PRIO-01 v1.4 and PBS-SEC-A-01 v1.3 (PBS-CONFORMANCE-01 Section 3). PBS-ENV-01 defines a fixed 44-byte big-endian header followed by the payload. The header CRC-32 (IEEE 802.3) covers header bytes 0x00–0x2B with the CRC32 field (0x28–0x2B) set to zero; it does not cover the payload.
+- [PBS-PRIO-01](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-RFC-LIB/PBS-PRIO-01.md) defines five priority classes: 0 CRITICAL, 1 HIGH, 2 NORMAL, 3 LOW, 4 BULK. Values 5–255 are reserved, and receivers discard envelopes that carry them (Section 5.1).
+- PBS-LNIS-01 requires an implementation to support a BPv7 binding when the mission profile requires disruption-tolerant service (PBS-LNIS-REQ-002), and permits IP bindings for contemporaneous connectivity (PBS-LNIS-REQ-003).
+- [PBS-DTN-MAP-01](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-RFC-LIB/PBS-DTN-MAP-01.md) (v1.3) maps each envelope to exactly one bundle and places the complete envelope, header and payload, in a single BPv7 payload block (Sections 5.1, 6.2). [PBS-DTN-MAP-02](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-RFC-LIB/PBS-DTN-MAP-02.md) (v1.4) bounds the bundle lifetime so that network delivery cannot extend a message beyond its PBS deadline or expiry (Section 4).
+- Contact plans, route computation and provider path selection are DTN and network-service functions. PBS Service Intent supplies application requirements as policy input to them (PBS-DTN-MAP-02 Section 8).
 
 ---
 
 ## Current Release
 
-**PBS v1.4** (2026-09-22) aligns the PBS standards with NASA's LCRNS / LunaNet architecture and FY26 Civil Space Shortfalls. It adds mission service intent, authority and scope context, PNT context, authenticated mission messaging, a current BPv7 mapping, network-treatment mapping, and a NASA/LunaNet conformance profile, with requirements traceability. See the [changelog](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-PROTOCOL-CHANGELOG.md).
+PBS v1.4.1 (2026-10-06) is the current release. It is an errata and documentation release of PBS v1.4 (2026-09-22) and does not change the wire format. It corrects the header CRC-32 coverage stated in PBS-ENV-01 Section 4, PBS-SEC-A-01 and PBS-CONFORMANCE-01 from bytes 0x00–0x27 to bytes 0x00–0x2B with the CRC32 field zeroed, the rule PBS-ENV-01 Section 13 already specified.
+
+PBS v1.4, the NASA FY26 / LunaNet alignment release, added mission service intent (PBS-SVC-01), authority and scope context (PBS-AUTH-01), authenticated mission messaging (PBS-SEC-B-01), PNT context (PBS-PNT-CTX-01), the LunaNet application alignment profile (PBS-LNIS-01), the BPv7 mapping PBS-DTN-MAP-02, mission-intent-to-network-treatment mapping (PBS-QOS-MAP-01), the NASA/LunaNet conformance and verification profile (PBS-CONFORMANCE-02), the FY26 alignment assignment (PBS-ALIGN-ASSIGNMENT-NASA-FY26-01), the traceability matrix PBS-TRACE-NASA-FY26-01 and the architecture mapping PBS-ALIGN-NASA-LCRNS-02.
+
+The [changelog](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-PROTOCOL-CHANGELOG.md) records the errata and additions of each release.
 
 ---
 
 ## Repositories
 
-| Repository | What it is |
+| Repository | Content |
 | --- | --- |
-| [PBS-PROTOCOL-OPEN](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN) | The PBS open standard: protocol specifications, conformance profiles, governance, and external alignment evidence |
-| [PBS_LINK](https://github.com/Pale-Blue-Systems/PBS_LINK) | Python reference SDK for building and parsing PBS envelopes |
-| [PBS-EDGE-ADAPTER-MV](https://github.com/Pale-Blue-Systems/PBS-EDGE-ADAPTER-MV) | Minimum viable reference for mapping PBS envelopes into BPv7 bundles at the network edge |
-| [PBS-APPLICATION-LAYER-RISK-MANAGMENT](https://github.com/Pale-Blue-Systems/PBS-APPLICATION-LAYER-RISK-MANAGMENT) | Application-layer governors that shed traffic by PBS priority on metered or power-constrained links |
+| [PBS-PROTOCOL-OPEN](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN) | PBS specifications (`PBS-RFC-LIB/`), governance, changelog, and alignment and traceability records (`PBS-ALIGNMENT-LIB/`). |
+| [PBS_LINK](https://github.com/Pale-Blue-Systems/PBS_LINK) | Python reference SDK that builds and parses PBS-ENV-01 v1.3 envelopes; pip distribution `pbs-link` 0.1.1, import package `PBS_LINK`. |
+| [PBS-EDGE-ADAPTER-MV](https://github.com/Pale-Blue-Systems/PBS-EDGE-ADAPTER-MV) | Reference design and tested Python worked example that builds a BPv7 bundle (RFC 9171) carrying one PBS-ENV-01 envelope in its payload block; it does not connect to a bundle protocol agent. |
+| [PBS-APPLICATION-LAYER-RISK-MANAGMENT](https://github.com/Pale-Blue-Systems/PBS-APPLICATION-LAYER-RISK-MANAGMENT) | Python admission-control governors that refuse outbound packets by PBS-PRIO-01 class, lowest class first, as a 24-hour data-volume or transmit-energy budget depletes; CRITICAL (0) is always admitted. |
+
+None of these repositories implements the v1.4 extensions PBS-SVC-01, PBS-AUTH-01, PBS-SEC-B-01 or PBS-PNT-CTX-01.
 
 ---
 
-**Pale Blue Systems Foundation**
-Stewarding open, interoperable communication standards for humanity’s expansion into space.
+## Licensing and Governance
+
+All four repositories are licensed under the Apache License 2.0. Changes to PBS Core follow the RFC process in [PBS-GOV-01](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-RFC-LIB/PBS-GOV-01.md) Section 5 and the versioning policy in Section 6. Submitting a contribution to PBS-PROTOCOL-OPEN accepts the PBSF [Contributor License Agreement](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/CLA.md) (CLA Section 1).
