@@ -91,6 +91,15 @@ The [changelog](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main
 
 None of these repositories implements the v1.4 extensions PBS-SVC-01, PBS-AUTH-01, PBS-SEC-B-01 or PBS-PNT-CTX-01.
 
+### Upstream DTN software
+
+Pale Blue Systems does not fork or mirror third-party DTN software. Use the upstream repositories:
+
+| Repository | Content |
+| --- | --- |
+| [nasa-jpl/ION-DTN](https://github.com/nasa-jpl/ION-DTN) | NASA/JPL Interplanetary Overlay Network (ION), an implementation of delay/disruption-tolerant networking. Its `bpv7` module implements RFC 9171 and is one bundle protocol agent that can carry PBS envelopes in BPv7 bundles. |
+| [nasa-jpl/ion-config-tool](https://github.com/nasa-jpl/ion-config-tool) | JPL configuration tools that generate ION configuration files. |
+
 ---
 
 ## Licensing and Governance
