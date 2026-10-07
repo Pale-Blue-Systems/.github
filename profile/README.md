@@ -33,6 +33,8 @@ LunaNet is the lunar communications and PNT interoperability framework that NASA
 - Real-time IP network services carry traffic when source and destination are both on an IP-capable part of the network (Section 3.1.1.2).
 - BPv7 carries traffic over links with disruption or delay, or where no robust end-to-end path exists (Section 3.1.2).
 
+In parallel, NASA’s **Moon to Mars Architecture Definition Document** describes an exploration strategy that explicitly depends on **interoperable, extensible, and evolvable communications and data systems** spanning Earth, lunar, and Mars domains.
+
 NASA's [Moon to Mars Architecture Definition Document](https://www.nasa.gov/wp-content/uploads/2025/12/add-revision-c-20251211.pdf) (ESDMD-001 Revision C, 12 December 2025), Section 2.3.14.2, states: "NASA seeks to empower network users with a long-term, scalable, and interoperable C&PNT architecture." The same section names LNIS as the structure of standards, protocols and interface requirements for LunaNet, and states that NASA must define, adopt and implement lunar reference systems, including reference frames, in the early stages of architecture development.
 
 A message between two lunar assets can therefore cross more than one provider, over IP or over BPv7. LNIS defines the standards and interfaces with which providers deliver interoperable services (Section 1.1). PBS defines the application-layer fields the receiving application acts on: the sender's identity (Source ID), the message priority and deadline, the commanding authority, and the reference frame and time reference of PNT data. [PBS-LNIS-01](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-RFC-LIB/PBS-LNIS-01.md) requires every provider transition to preserve the PBS Source ID, authority context, priority, Service Intent and protected application payload (PBS-LNIS-REQ-007).
@@ -40,6 +42,8 @@ A message between two lunar assets can therefore cross more than one provider, o
 ---
 
 ## NASA FY26 Civil Space Shortfalls
+
+NASA’s Space Technology Mission Directorate (STMD) has formally identified **communications, networking, and coordination** as critical technology shortfalls that must be addressed to support future exploration architectures.
 
 NASA's Space Technology Mission Directorate (STMD) defines a shortfall as "a technology area requiring further development to meet future exploration, science, and other mission needs" ([FY26 Civil Space Shortfall Prioritization](https://www.nasa.gov/wp-content/uploads/2026/05/fy26-civil-space-shortfall-prioritization.pdf), May 2026, p. 3). The FY26 prioritization consolidates the 187 shortfalls STMD published in 2024 into 32 categories, and each category contains numbered need statements. The PBS traceability matrix, added in PBS v1.4 and unchanged in v1.5.0, traces PBS requirements to four need statements:
 
@@ -51,6 +55,10 @@ NASA's Space Technology Mission Directorate (STMD) defines a shortfall as "a tec
 | 24.05 | "Develop a lunar position, navigation, and timing architecture capable of scaling to long term operational needs." | PBS-NASA-2405-001 to -003 | PBS-PNT-CTX-01 |
 
 STMD lists 13.09, 15.01 and 24.05 among its 40 primary focus areas for FY26 (pp. 10–11).
+
+NASA’s shortfall process highlights the need for advances in areas including high-rate space communications, autonomous operations, and distributed systems that must function reliably across deep space and planetary environments.
+
+Together, these documents make clear that future missions require **shared networking standards** capable of operating across long distances, disconnected environments, and diverse mission operators.
 
 The traceability matrix [PBS-TRACE-NASA-FY26-01](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-ALIGNMENT-LIB/PBS-TRACE-NASA-FY26-01.md) also traces PBS-LNIS-001 to -003 to LNIS V005, and PBS-BPV7-001 and -002 to RFC 9171 / CCSDS. It assigns each requirement one or two verification methods from analysis (A), inspection (I), demonstration (D) and test (T). The matrix is a PBS engineering record, not a NASA document. No verification results against it are published.
 
@@ -71,7 +79,7 @@ The standards stewarded by PBSF are designed to:
 
 PBSF standards are designed to **translate and interoperate with NASA-adopted DTN implementations**, including the **Interplanetary Overlay Network (ION)**.
 
-PBSF builds on this foundation to enable **multi-party, multi-vendor interoperability** at scale.
+ION demonstrates how DTN-based protocols can be deployed across flight and ground systems; PBSF builds on this foundation to enable **multi-party, multi-vendor interoperability** at scale.
 
 ---
 
