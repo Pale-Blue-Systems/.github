@@ -1,8 +1,27 @@
 # Pale Blue Systems Foundation
 
+The **Pale Blue Systems Foundation (PBSF)** is an independent, foundation-led steward of **open standards and reference implementations** for reliable, interoperable communication across **space, lunar, planetary, and other extreme or delay-tolerant environments**.
+
+PBSF exists to ensure that spacecraft, rovers, habitats, autonomous systems, and ground infrastructure can **communicate, coordinate, and exchange data safely and predictably** across heterogeneous networks where traditional terrestrial assumptions—continuous connectivity, low latency, single-authority control—do not apply.
+
+The Foundation provides the **shared technical language and governance layer** that allows civil, commercial, and international space systems to interoperate without requiring shared vendors, shared hardware, or proprietary disclosure.
+
 The Pale Blue Systems Foundation (PBSF) stewards the Pale Blue Systems (PBS) Open Standard. PBS is an application-layer protocol that carries mission semantics between mission applications independently of the transport beneath it, including the IP and Bundle Protocol Version 7 (BPv7) network services of LunaNet. The semantics include priority, Service Intent, authority, authentication, and position, navigation and timing (PNT) context.
 
 PBSF publishes the PBS Core specifications, reviews and accepts changes, manages versioning and deprecation, and maintains conformance guidance. It does not develop mission-specific software, operate networks or deploy infrastructure (PBS-GOV-01 Section 3.1). Under [PBS-GOV-01](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-RFC-LIB/PBS-GOV-01.md) Section 3.2, Pale Blue Systems is a commercial entity that may build proprietary implementations of PBS Core, offer PBS-compatible products, services and infrastructure, and contribute proposals and reference implementations under PBSF governance; it has no special authority over PBS Core beyond that of any other contributor.
+
+---
+
+## Why the Foundation Exists
+
+As space operations move toward sustained lunar presence, cislunar infrastructure, and Mars exploration, missions increasingly depend on **distributed, networked systems** operating across:
+
+- long and variable communication delays
+- intermittent or scheduled connectivity
+- multiple independent authorities and vendors
+- human-rated, life- and safety-critical environments
+
+These conditions require communication architectures that are **store-and-forward by design**, tolerant of disruption, and interoperable across organizational boundaries.
 
 ---
 
@@ -37,6 +56,59 @@ The traceability matrix [PBS-TRACE-NASA-FY26-01](https://github.com/Pale-Blue-Sy
 
 ---
 
+## How Pale Blue Systems Addresses This Problem (Planned Architecture)
+
+PBSF directly addresses these NASA-identified needs by stewarding **open standards and reference implementations** that sit **between space hardware and mission applications**, enabling interoperability without constraining innovation.
+
+### Architectural Commitments (design targets)
+
+The standards stewarded by PBSF are designed to:
+
+- **Align with NASA’s Delay/Disruption Tolerant Networking (DTN) architecture**, including compatibility with CCSDS and Internet Bundle Protocol concepts
+- **Prioritize store-and-forward communication**, treating disconnection as normal rather than exceptional
+- **Support data classification and prioritization**, ensuring that life- and safety-critical telemetry and command data are handled appropriately
+- **Enable seamless communication between proprietary systems**, regardless of latency profile, vendor, or deployment context
+
+PBSF standards are designed to **translate and interoperate with NASA-adopted DTN implementations**, including the **Interplanetary Overlay Network (ION)**.
+
+PBSF builds on this foundation to enable **multi-party, multi-vendor interoperability** at scale.
+
+---
+
+## Where PBSF Fits (Planned Architecture Overview)
+
+The Pale Blue Systems standards operate as **middleware**, abstracting communication complexity while remaining grounded in real space networking constraints.
+
+```text
++------------------------------------------------------+
+|                  Mission Applications                 |
+|   (Rovers, Landers, Habitats, Drones, Ops Software)   |
++----------------------▲-------------------------------+
+                       |
+                       |  Interoperable Data Exchange
+                       |
++----------------------|-------------------------------+
+|        Pale Blue Systems Standards & Reference       |
+|            Implementations (Middleware Layer)        |
+|   - DTN-aligned messaging                            |
+|   - Store-and-forward transport                      |
+|   - Safety & priority handling                       |
+|   - Multi-authority interoperability                 |
++----------------------▲-------------------------------+
+                       |
+                       |  Translated / Abstracted Links
+                       |
++----------------------|-------------------------------+
+|     Space Communication Hardware & Links             |
+|   (Radios, Lasers, Relays, Ground Stations, Antennas)|
++------------------------------------------------------+
+```
+
+PBSF does **not** replace mission software or physical communication systems.
+It provides the **common protocol language** that allows them to work together.
+
+---
+
 ## Where PBS Sits
 
 ```text
@@ -65,6 +137,31 @@ The traceability matrix [PBS-TRACE-NASA-FY26-01](https://github.com/Pale-Blue-Sy
 - PBS-LNIS-01 requires an implementation to support a BPv7 binding when the mission profile requires disruption-tolerant service (PBS-LNIS-REQ-002), and permits IP bindings for contemporaneous connectivity (PBS-LNIS-REQ-003).
 - [PBS-DTN-MAP-01](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-RFC-LIB/PBS-DTN-MAP-01.md) (v1.5) maps each envelope to exactly one bundle and places the complete envelope, header and payload, in a single BPv7 payload block (Sections 5.1, 6.2). [PBS-DTN-MAP-02](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-RFC-LIB/PBS-DTN-MAP-02.md) (v1.5) bounds the bundle lifetime so that network delivery cannot extend a message beyond its PBS deadline or expiry (Section 4).
 - Contact plans, route computation and provider path selection are DTN and network-service functions. PBS Service Intent supplies application requirements as policy input to them (PBS-DTN-MAP-02 Section 8).
+
+---
+
+## Benefits for Commercial and Civil Space Systems (Concept of Operations)
+
+A commercial spacecraft, rover, habitat, drone, or field technician benefits from PBSF standards by gaining:
+
+- Interoperability with NASA and other civil programs without bespoke integration
+- Compatibility across high-latency and low-latency networks using a single logical model
+- Reduced engineering risk through alignment with NASA-recognized architectures
+- Freedom to innovate internally while communicating externally through shared standards
+
+This lowers integration cost, reduces mission risk, and enables participation in multi-party exploration architectures.
+
+---
+
+## Why Open Standards and Neutral Stewardship Matter
+
+PBSF is intentionally structured as a **neutral foundation** stewarding **open standards and reference implementations**:
+
+- **Open standards enable trust and adoption** across agencies, companies, and nations
+- **Reference implementations provide clarity**, not commercial lock-in
+- **Neutral governance ensures longevity**, allowing the standards to outlive individual missions or vendors
+
+This mirrors the model that allowed the Internet to scale globally—and applies it to the far more constrained domain of space.
 
 ---
 
@@ -109,7 +206,7 @@ The [changelog](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main
 | --- | --- |
 | [PBS-PROTOCOL-OPEN](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN) | PBS specifications (`PBS-RFC-LIB/`), governance, changelog, and alignment and traceability records (`PBS-ALIGNMENT-LIB/`). |
 | [PBS_LINK](https://github.com/Pale-Blue-Systems/PBS_LINK) | Python reference SDK that builds and parses PBS-ENV-01 envelopes (the 44-byte header, unchanged since PBS-ENV-01 v1.3); pip distribution `pbs-link` 0.1.4, import package `PBS_LINK`. It is an endpoint library and does not forward envelopes. |
-| [PBS-EDGE-ADAPTER-MV](https://github.com/Pale-Blue-Systems/PBS-EDGE-ADAPTER-MV) | Reference design and tested Python worked example that builds a BPv7 bundle (RFC 9171) carrying one PBS-ENV-01 envelope in its payload block; it does not connect to a bundle protocol agent. |
+| [PBS-EDGE-ADAPTER-MV](https://github.com/Pale-Blue-Systems/PBS-EDGE-ADAPTER-MV) | Minimum viable reference for mapping PBS envelopes into BPv7 bundles at the network edge. Reference design and tested Python worked example that builds a BPv7 bundle (RFC 9171) carrying one PBS-ENV-01 envelope in its payload block; it does not connect to a bundle protocol agent. |
 | [PBS-APPLICATION-LAYER-RISK-MANAGMENT](https://github.com/Pale-Blue-Systems/PBS-APPLICATION-LAYER-RISK-MANAGMENT) | Python admission-control governors that refuse outbound packets by PBS-PRIO-01 class, lowest class first, as a 24-hour data-volume or transmit-energy budget depletes; the transmit-energy governor also refuses every class except CRITICAL while battery charge is below a configured cutoff. CRITICAL (0) is always admitted. |
 
 None of these repositories implements the v1.4 extensions PBS-SVC-01, PBS-AUTH-01, PBS-SEC-B-01 or PBS-PNT-CTX-01.
@@ -125,6 +222,20 @@ Pale Blue Systems does not fork or mirror third-party DTN software. Use the upst
 
 ---
 
+## What You Will Find in This Repository (Roadmap)
+
+- **Specifications** defining the Pale Blue Systems communication standards
+- **Reference implementations** demonstrating correct, interoperable behavior
+- **Conformance and interoperability tooling**
+- **Governance artifacts** (RFCs, decision records, version history)
+
+---
+
 ## Licensing and Governance
 
 All four repositories are licensed under the Apache License 2.0. Changes to PBS Core follow the RFC process in [PBS-GOV-01](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/PBS-RFC-LIB/PBS-GOV-01.md) Section 5 and the versioning policy in Section 6. Submitting a contribution to PBS-PROTOCOL-OPEN accepts the PBSF [Contributor License Agreement](https://github.com/Pale-Blue-Systems/PBS-PROTOCOL-OPEN/blob/main/CLA.md) (CLA Section 1).
+
+---
+
+**Pale Blue Systems Foundation**
+Stewarding open, interoperable communication standards for humanity’s expansion into space.
